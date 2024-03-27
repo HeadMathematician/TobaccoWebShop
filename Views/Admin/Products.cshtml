@@ -1,0 +1,55 @@
+﻿@model List<Product>
+
+<div class="d-flex flex-column">
+    <div class="d-flex justify-content-start mb-4 mt-2 px-2 ">
+        <a asp-controller="Product" asp-action="Upsert" class="btn btn-success">
+            Add new 
+        </a>
+    </div>
+    @foreach(var product in Model)
+    {
+        <div class="d-flex flex-row justify-content-start align-items-center w-100 px-2 mb-2" style="height:5rem">
+            @{
+                if (product.Image != null)
+                {
+                    var imreBase64Data = product.Image;
+                    byte[] bytes = Convert.FromBase64String(imreBase64Data);
+                    var image = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+                    <img src="@image" style="height:5rem; width: 80px; border: 1px solid gray" />
+                }
+                else
+                {
+                    <img src="" alt="Product image" style="height:5rem; width:80px; border: 1px dotted gray"/>
+                }
+            }
+            <div class="d-flex justify-content-evenly align-items-center w-100" style="margin-left:1rem; margin-right:1rem;">
+                <span style="width:14rem;" class="d-flex align-items-center justify-content-start">
+                    @product.Name
+                </span>
+                <span style="width:28rem;" class="d-flex align-items-center justify-content-start">
+                    @product.Description
+
+                </span>
+                <span stlye="width:5rem;" class="d-flex align-items-center justify-content-start">
+                    $@product.Price
+
+                </span>
+            </div>
+            
+            <div class="d-flex flex-row justify-content-evenly" style="width:10rem; ">
+                <a asp-controller="Product" asp-action="Upsert" asp-route-productId="@product.Id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2" 
+                    stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                    <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
+                </a>
+                <a asp-controller="Product" asp-action="Delete" asp-route-productId="@product.Id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" 
+                    stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                    </path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                </a>
+            </div>
+        </div>
+
+    }
+</div>

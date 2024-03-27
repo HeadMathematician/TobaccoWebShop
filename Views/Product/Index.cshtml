@@ -1,4 +1,55 @@
-﻿
+﻿@model List<Product>
 
-@{
-}
+<div class="w-100 d-flex d-row px-0 mx-0 justify-content-start product-layout">
+    
+    <div class="col-2 sticky-element h-100 layout-shadow">
+        <div class="sticky-element">
+            <h4>
+                Filter by..
+            </h4>
+        </div>
+    </div>
+    <div class="col-10 flex-wrap layout-shadow">
+        <div class="d-flex justify-content-start flex-wrap mt-2">
+            @foreach(var product in Model)
+            {
+                <div>
+                    <h5>
+                        @product.Name
+
+                    </h5>
+                    <div class="product-card">
+                        <div style="height:13.5rem; width:100%;" class="d-flex justify-content-center align-items-center">
+                            @{
+                                if (product.Image != null)
+                                {
+                                    var imreBase64Data = product.Image;
+                                    byte[] bytes = Convert.FromBase64String(imreBase64Data);
+                                    var image = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+                                    <img src="@image" class="product-image" />
+                                }
+                                else
+                                {
+                                    <img src="" alt="Product image" />
+                                }
+                            }
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mt-3">
+                            <button class="btn btn-secondary" style="margin-right:0.5em; font-size:0.75em">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                Buy
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75em">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1" /><circle cx="18" cy="20.5" r="1" /><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1" /></svg>
+                                Cart
+                            </button>
+                            <h6 class="d-flex justify-content-center align-items-center mt-2" style="margin-left:0.5rem">
+                                $@product.Price
+                            </h6>                           
+                        </div>
+                    </div>
+                </div>                           
+            }
+        </div>     
+    </div>
+</div>

@@ -1,3 +1,5 @@
+
+
 html {
   font-size: 14px;
 }
@@ -18,17 +20,17 @@ html {
 }
 
 .content {
-    flex-grow: 1;
+    flex: 1;
     text-align: center;
-    padding: 0 20px;
+    padding: 0.25rem 0.5rem 0 0.5rem;
+    
 }
 
 #main-sidebar {
-    width: 13rem;
+    width: 12rem;
     background-color: #0F0F0F;
-    height: 100vh;
+    height: 100%;
     display: flex;
-    position:fixed;
     flex-direction: column;
     box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.5);
 }
@@ -43,6 +45,8 @@ html {
     background-color: #0F0F0F;
     padding: 0.5rem;
     border: none;
+    width:100%;
+    display:flex;
 }
 
 #sidebar-menu-button:hover {
@@ -66,7 +70,6 @@ html {
     font-size: 1rem;
     text-transform: uppercase;
     margin-bottom: 0.75rem;
-    text-align: center;
     width: 100%;
     line-height: 3rem;
     font-weight: 300;
@@ -82,6 +85,10 @@ html {
 .sidebar-anchor {
     text-decoration: none;
     color: white !important;
+    text-indent: 1rem;
+    border-width: 1px;
+    display: flex;
+    align-items: center;
 }
 
 .cls1 {
@@ -92,3 +99,106 @@ html {
     fill: black;
 }
 
+.main-container{
+    display:flex;
+    flex: 1;
+}
+
+.vw100{
+    width: 100vw !important;
+}
+
+#page{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-content:flex-start;
+    height:100vh;
+}
+
+.match-height{
+    width:100%;
+    height:calc(100vh - 5.6565rem);
+}
+
+#top-menu {
+    background-color: #f4ecec !important;
+}
+
+.page-content {
+    background-color: lightgreen;
+    height: 100%;
+    border: 1px solid lightgreen;
+}
+
+.sticky-element {
+    position: sticky;
+    align-self: flex-start;
+    top: 0;
+}
+
+.product-layout {
+    margin: 0;
+    height: calc(100% - 0.25rem);
+}
+
+.layout-shadow {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.product-card {
+    height: 17.4rem;
+    width: 17rem;
+    margin: 0.47rem;
+    margin-left: 1.5rem;
+    background-color: saddlebrown;
+    color: white;
+    font-size: 1.25em;
+    font-family: Courier New, Courier, monospace;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+}
+
+.create-product-card {
+    background-color: #F4ECEC;
+    border-radius:16px;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,.5)!important;
+}
+
+.create-product-card-header {
+    background-color: rgb(15,15,15); 
+    border-top-left-radius: 18px !important;
+    border-top-right-radius: 18px !important;
+}
+
+.input-height{
+    height:3em;
+}
+
+.product-image {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width:inherit;
+    height:inherit;
+}
+
+.admin-card{
+    background-color: darkkhaki;
+    border-radius: 12px;
+    height: 4rem;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.admin-link{
+    color:white;
+    text-decoration:none;
+    font-size: 1.5rem;
+}
+
+.admin-card:hover {
+    color: white;
+    background-color: #cac478;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,167 @@
+﻿@model Product
+@using TobaccoWebShop.Enums
+
+<div class="d-flex justify-content-center mb-4">
+    <div class="card border-0 mt-4 w-50 create-product-card h-50">
+        <div class="card-header m-lg-0 py-3 create-product-card-header" >
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">
+                        @(Model.Id != 0 ? "Edit" : "Add") Product
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" enctype="multipart/form-data">
+                <input asp-for="Id" hidden />
+                <div class="p-3">
+                    <div class="py-2 col-12 mt-2 mb-2">
+                        <label asp-for="Category" class="ms-2 text-start w-100 mb-2"></label>
+                        <select asp-for="Category" class="form-control border-0 shadow input-height">
+                            <option value="">Select category</option>
+                            @foreach(var category in Enum.GetValues(typeof(CategoryEnum)))
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.Category" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-12 mt-2 mb-2">
+                        <label asp-for="Name" class="ms-2 text-start w-100 mb-2"></label>
+                        <input asp-for="Name" class="form-control border-0 shadow input-height" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-12 mt-2 mb-2">
+                        <label asp-for="Description" class="p-0 text-start mb-2 w-100"></label>
+                        <input asp-for="Description" class="form-control border-0 shadow input-height" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-12 mt-2 mb-2">
+                        <label asp-for="Price" class="p-0 text-start w-100 mb-2"></label>
+                        <input asp-for="Price" class="form-control border-0 shadow input-height" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-12 mt-2 mb-2">
+                        @if (@Model.Image != null)
+                        {
+                            <input asp-for="Image" value="@Model.Image" hidden />
+
+                            var imreBase64Data = @Model.Image;
+                            byte[] bytes = Convert.FromBase64String(imreBase64Data);
+                            var image = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+                            <div id="existingImage">
+
+                                <div style="height:14em; width: 13.5em;">
+                                    <img src="@image" style="width:inherit; height:inherit;" />
+                                </div>
+
+                            </div>
+
+                            <div id="imageInputEdit" style="display:none;">
+                                <label asp-for="Image" class="p-0 text-start mb-2 w-100"></label>
+
+                                <input id="fileInput" asp-for="Image" type="file" name="file" accept="image/*" class="form-control border-0 shadow" />
+                            </div>
+
+                            <div id="imagePreview" style="display:none">
+                            </div>
+
+                            <button id="removeImage" type="button" onclick="RemoveImage()" class="btn btn-danger mt-2 d-flex">Remove Image</button>
+                        }
+                        else
+                        {
+                            <div>
+                                <label asp-for="Image" class="p-0 text-start mb-2 w-100"></label>
+                                <input id="fileInput" asp-for="Image" type="file" name="file" accept="image/*" class="form-control border-0 shadow mb-3" />
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div id="imagePreview" style="display:none">
+                                </div>
+                            </div>                       
+
+                            <button id="removeImage" type="button" onclick="RemoveImage()" class="btn btn-danger mt-2" style="display:none;">Remove Image</button>
+                        }
+                    </div>
+                        <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            @if (Model.Id != 0)
+                            {
+                                <button type="submit" class="btn btn-primary form-control">Edit</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary form-control">Create</button>
+                            }
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="Admin" asp-action="ProductsIndex" class="btn btn-outline-primary border form-control">
+                                Back to list
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        function RemoveImage() {
+            var imagePreview = document.getElementById('imagePreview');
+            var removeImage = document.getElementById('removeImage');
+            var existingImage = document.getElementById('existingImage');
+            var imageInputEdit = document.getElementById('imageInputEdit');
+
+            if (imageInputEdit != null) {
+                imageInputEdit.style.display = 'block';
+            }
+
+            imagePreview.style.display = 'none';
+            removeImage.style.display = 'none';
+            if(existingImage != null){
+                existingImage.style.display = 'none';
+
+            }
+            var fileInput = document.getElementById('fileInput');
+
+            fileInput.value = '';
+
+            fileInput.style.display = 'block';
+        }
+    </script>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const removeImage = document.getElementById('removeImage');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.width = 200;
+                    img.height = 200;
+
+                    imagePreview.innerHTML = '';
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+
+                imagePreview.style.display = 'block';
+                removeImage.style.display = 'block';
+                fileInput.style.display = 'none';
+            } else {
+                imagePreview.innerHTML = '';
+            }
+        });        
+    </script>
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
