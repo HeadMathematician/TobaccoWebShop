@@ -35,6 +35,12 @@ html {
     box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.5);
 }
 
+@media screen and (max-width: 920px){
+    #main-sidebar{
+        display:none;
+    }
+}
+
 #sidebar-menu-icon {
     height:2rem;
 
@@ -102,6 +108,8 @@ html {
 .main-container{
     display:flex;
     flex: 1;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
 }
 
 .vw100{
@@ -116,6 +124,27 @@ html {
     height:100vh;
 }
 
+@media screen and (max-width: 1439px) {
+    #page > * {
+        flex-basis: 25%; /* Each child takes 25% width */
+        max-width: calc(33.333% - 1rem); /* Adjust maximum width accordingly */
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #page > * {
+        flex-basis: 33.333%; /* Each child takes 33.333% width */
+        max-width: calc(50% - 1rem); /* Adjust maximum width accordingly */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #page > * {
+        flex-basis: 50%; /* Each child takes 50% width */
+        max-width: calc(100% - 1rem); /* Each child takes full width of the container */
+    }
+}
+
 .match-height{
     width:100%;
     height:calc(100vh - 5.6565rem);
@@ -123,7 +152,11 @@ html {
 
 #top-menu {
     background-color: #f4ecec !important;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
 }
+
+
 
 .page-content {
     background-color: lightgreen;
